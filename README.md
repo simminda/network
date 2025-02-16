@@ -82,3 +82,23 @@ Developed by Simphiwe.
 ## Acknowledgments
 This project is part of the CS50W course by Harvard University.
 
+## Screenshots
+
+### Landing Page
+![Landing Page](screenshots/1_Logged_In.png)
+
+### Landing Page (Extended)
+![Landing Page Extended](screenshots/2_Loged_In(2).png)
+
+### 3rd_Party_Profile Page
+![3rd_Party_Profile Page](screenshots/3_3rd_Party_Profile.png)
+
+### Own Profile Page
+![Profile Page](screenshots/4_Own_Profile.png)
+
+### Search
+![Search Page](screenshots/5_Search.png)
+
+### Pagination
+![Pagination](screenshots/6_Pagination.png)
+
