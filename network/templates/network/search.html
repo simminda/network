@@ -1,0 +1,44 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div class="container">
+    <h3>Search Results for "{{ query }}"</h3>
+
+    {% if users or posts %}
+        {% if users %}
+            <h4>Users</h4>
+            <ul class="list-group mb-3">
+                {% for user in users %}
+                    <li class="list-group-item">
+                        <a href="{% url 'profile' user.username %}" class="d-flex align-items-center">
+                            <img src="{{ user.profile.profile_picture.url|default:'/static/network/images/profile_pics/anonymous.jpg' }}" 
+                                 class="rounded-circle" width="40" height="40" style="object-fit: cover; margin-right: 10px;">
+                            {{ user.username }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if posts %}
+            <h4>Posts</h4>
+            {% for post in posts %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'profile' post.user.username %}">{{ post.user.username }}</a>
+                        <img src="{{ post.user.profile.profile_picture.url|default:'/static/network/images/profile_pics/anonymous.jpg' }}" 
+                             class="rounded-circle" width="25" height="25" style="object-fit: cover;">
+                    </h5>
+                    <p class="card-text">{{ post.content|linebreaks }}</p>
+                    <p class="text-muted">Posted on {{ post.timestamp }}</p>
+                    <a href="{% url 'index' %}#post-{{ post.id }}" class="btn btn-sm btn-outline-secondary">View Post</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</div>
+{% endblock %}

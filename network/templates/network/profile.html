@@ -1,0 +1,78 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div class="container">
+    <h2>{{ profile_user.username }} <img src="{{ profile_user.profile_picture.url }}" class="rounded-circle profile-pic">
+    </h2>
+    <p><strong>Followers:</strong> <span id="followers-count">{{ followers_count }}</span></p>
+    <p><strong>Following:</strong> {{ following_count }}</p>
+
+    {% if profile_user == request.user %}
+        <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-secondary">Edit Profile</a>
+    {% endif %}
+
+
+    {% if request.user.is_authenticated and request.user != profile_user %}
+        <button id="follow-btn" class="btn btn-primary"
+            onclick="toggleFollow('{{ profile_user.username }}')">
+            {% if is_following %} Unfollow {% else %} Follow {% endif %}
+        </button>
+    {% endif %}
+
+    <hr>
+
+    <h3>Posts</h3>
+    {% for post in posts %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p class="card-text">{{ post.content|linebreaksbr }}</p>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="post-image" alt="Post Image">
+                {% endif %}
+                <p class="text-muted">Posted on {{ post.timestamp }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Pagination Controls -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if posts.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a></li>
+            {% endif %}
+
+            <li class="page-item disabled"><span class="page-link">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span></li>
+
+            {% if posts.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ posts.paginator.num_pages }}">Last &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+
+<script>
+function toggleFollow(username) {
+    fetch(`/profile/${username}/follow/`, {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": getCSRFToken(),
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.is_following) {
+            document.getElementById("follow-btn").innerText = "Unfollow";
+        } else {
+            document.getElementById("follow-btn").innerText = "Follow";
+        }
+        document.getElementById("followers-count").innerText = data.followers_count;
+    })
+    .catch(error => console.error("Error:", error));
+}
+</script>
+
+{% endblock %}

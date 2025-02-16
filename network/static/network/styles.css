@@ -1,0 +1,78 @@
+/* 
+.navbar {
+    background: url("../network/images/misc/dotted_bckgrnd.png");
+    background-repeat: repeat;
+}
+ */
+
+body {
+    background: url("../network/images/misc/dotted_bckgrnd.png");
+    background-repeat: repeat;
+}
+
+.post-image {
+    max-width: 100%;  /* Ensures image doesn't exceed container width */
+    max-height: 300px; 
+    object-fit: cover; /* Ensures the image maintains aspect ratio */
+    display: block;
+    margin: 10px 0;
+}
+
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 0 5px;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination span {
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+
+#create-post {
+    border: solid 1px gainsboro;
+    border-radius: 20px;
+    background-color: rgb(192, 253, 190);
+}
+#create-post:hover {
+    background-color: rgb(152, 253, 149);
+}
+
+h5 a {
+    text-decoration: none;
+}
+h5 a:hover {
+    text-decoration: underline;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;  /* Ensures a square */
+    object-fit: cover; /* Prevents distortion */
+}
+
+
+.search-result {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-result img {
+    margin-right: 10px;
+    vertical-align: middle;
+}
